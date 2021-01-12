@@ -4,7 +4,7 @@ library(haven)
 
 ## Load raw data ##
 survey_data <- read_dta(
-  "/Users/michaelharper/OMSBA 5112 R Files/week_1/Raw Data/IAHR52FL.dta")
+  "Raw Data/IAHR52FL.dta")
 View(survey_data)
 survey_subset <- select(survey_data, hhid:shstruc)
 
@@ -46,7 +46,15 @@ urban_plot <- ggplot(data = urban_city_size, mapping = aes(x = city_size,
 urban_plot
 
 
+## Group and summarize household size by type of urban area
+urban_city_size %>%
+  group_by(city_size) %>%
+  summarise(mean_hh = mean(household_size, na.rm = TRUE))
 
+urban_city_size %>%
+  group_by(city_size) %>%
+  summarise(median_hh = median(household_size, na.rm = TRUE))
 
-
-
+urban_city_size %>%
+  group_by(city_size) %>%
+  summarise(sd_hh = sd(household_size, na.rm = TRUE))
